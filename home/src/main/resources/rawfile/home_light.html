@@ -70,11 +70,139 @@
             color: var(--link-color);
         }
 
-        .title {
-            font-size: 2.5rem;
+        .search-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 100%;
+            max-width: 600px;
             margin-bottom: 2rem;
-            font-weight: 300;
+            position: relative;
+        }
+
+        .search-container input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .search-container input[type="text"]:focus {
+            border-color: var(--link-color);
+        }
+
+        .search-container select {
+            position: absolute;
+            right: 1rem;
+            padding: 0.5rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+            background-color: white;
+        }
+
+        .search-container select:focus {
+            border-color: var(--link-color);
+        }
+
+        .search-container button {
+            position: absolute;
+            left: 1rem;
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+            background-color: var(--accent-color);
+            color: white;
+            cursor: pointer;
+        }
+
+        .search-container button:hover {
+            border-color: var(--link-color);
+            background-color: var(--link-color);
+        }
+
+        .ai-search-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        .ai-search-container.active {
+            display: flex;
+        }
+
+        .ai-search-box {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 100%;
+            max-width: 600px;
+            position: relative;
+        }
+
+        .ai-search-box input[type="text"] {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease;
+        }
+
+        .ai-search-box input[type="text"]:focus {
+            border-color: var(--link-color);
+        }
+
+        .ai-search-box button {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color 0.3s ease, background-color 0.3s ease;
+            background-color: var(--accent-color);
+            color: white;
+            cursor: pointer;
+        }
+
+        .ai-search-box button:hover {
+            border-color: var(--link-color);
+            background-color: var(--link-color);
+        }
+
+        .ai-search-box .close-button {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
             color: var(--accent-color);
+            cursor: pointer;
+        }
+
+        .ai-search-result {
+            margin-top: 1rem;
+            font-size: 1rem;
+            color: var(--text-color);
+            text-align: left;
         }
 
         .quick-links {
@@ -172,10 +300,6 @@
                 padding: 1rem;
             }
 
-            .title {
-                font-size: 2rem;
-            }
-
             .quick-links {
                 gap: 1rem;
             }
@@ -203,7 +327,26 @@
         <span class="brand">Ark</span>
     </div>
     <div class="clock" id="clock"></div>
-    <h1 class="title">导航页</h1>
+
+    <div class="search-container">
+        <button id="ai-search-button">AI 搜索</button>
+        <input type="text" id="search-input" placeholder="搜索..." onkeypress="handleKeyPress(event)">
+        <select id="search-engine">
+            <option value="https://www.google.com/search?q=">Google</option>
+            <option value="https://www.bing.com/search?q=">Bing</option>
+            <option value="https://www.baidu.com/s?wd=">Baidu</option>
+            <option value="https://www.duckduckgo.com/?q=">DuckDuckGo</option>
+        </select>
+    </div>
+
+    <div class="ai-search-container" id="ai-search-container">
+        <div class="ai-search-box">
+            <button class="close-button" onclick="closeAiSearch()">×</button>
+            <input type="text" id="ai-search-input" placeholder="AI 搜索...">
+            <button onclick="performAiSearch()">搜索</button>
+            <div class="ai-search-result" id="ai-search-result"></div>
+        </div>
+    </div>
 
     <div class="quick-links">
         <a href="https://cn.bing.com" class="quick-link" target="_blank">
@@ -260,6 +403,65 @@
             hour12: false
         });
     }
+
+    function handleKeyPress(event) {
+        if (event.key === 'Enter') {
+            const searchInput = document.getElementById('search-input').value;
+            const searchEngine = document.getElementById('search-engine').value;
+            if (searchInput) {
+                window.location.href = searchEngine + searchInput;
+            }
+        }
+    }
+
+    function openAiSearch() {
+        document.getElementById('ai-search-container').classList.add('active');
+    }
+
+    function closeAiSearch() {
+        document.getElementById('ai-search-container').classList.remove('active');
+    }
+
+    async function performAiSearch() {
+        const aiSearchInput = document.getElementById('ai-search-input').value;
+        if (aiSearchInput) {
+            const response = await fetch('http://localhost:5000/chat', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    model: 'lite',
+                    messages: [
+                        {
+                            role: 'user',
+                            content: aiSearchInput
+                        }
+                    ],
+                    stream: true
+                })
+            });
+
+            const reader = response.body.getReader();
+            const decoder = new TextDecoder('utf-8');
+            const resultElement = document.getElementById('ai-search-result');
+            resultElement.textContent = ''; // Clear previous results
+
+            while (true) {
+                const { done, value } = await reader.read();
+                if (done) {
+                    break;
+                }
+                const chunk = decoder.decode(value);
+                const data = JSON.parse(chunk);
+                if (data.choices && data.choices[0].delta.content) {
+                    resultElement.textContent += data.choices[0].delta.content;
+                }
+            }
+        }
+    }
+
+    document.getElementById('ai-search-button').addEventListener('click', openAiSearch);
 
     // Update clock immediately and then every second
     updateClock();
