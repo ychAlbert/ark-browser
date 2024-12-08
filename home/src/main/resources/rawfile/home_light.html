@@ -1,31 +1,236 @@
 <!DOCTYPE html>
-<html lang="en">
-<link rel="icon" href="fox.ico">
+<html lang="zh-CN">
 <head>
     <meta charset="utf-8">
-    <title>Meow</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>导航页</title>
+    <link rel="icon" href="favicon.ico">
+    <style>
+        :root {
+            --bg-color: #E1E9E3;
+            --text-color: #2c3e50;
+            --accent-color: #34495e;
+            --link-color: #2980b9;
+            --icon-size: 48px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html, body {
+            height: 100%;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
+            line-height: 1.6;
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            height: 100%;
+            text-align: center;
+        }
+
+        .title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            font-weight: 300;
+            color: var(--accent-color);
+        }
+
+        .quick-links {
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .quick-link {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-decoration: none;
+            color: var(--text-color);
+            transition: transform 0.3s ease;
+            width: 100px;
+        }
+
+        .quick-link:hover {
+            transform: scale(1.1);
+        }
+
+        .quick-link-icon {
+            width: var(--icon-size);
+            height: var(--icon-size);
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            background-color: rgba(52, 73, 94, 0.1);
+            margin-bottom: 0.5rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .quick-link:hover .quick-link-icon {
+            background-color: rgba(52, 73, 94, 0.2);
+        }
+
+        .quick-link-icon img {
+            max-width: 70%;
+            max-height: 70%;
+            object-fit: contain;
+        }
+
+        .quick-link-text {
+            font-size: 0.9rem;
+            color: var(--accent-color);
+        }
+
+        .navigation {
+            display: flex;
+            gap: 1.5rem;
+            margin-top: 2rem;
+        }
+
+        .link {
+            text-decoration: none;
+            color: var(--link-color);
+            font-size: 1rem;
+            transition: color 0.3s ease;
+            position: relative;
+            padding-bottom: 0.25rem;
+        }
+
+        .link:hover {
+            color: var(--accent-color);
+        }
+
+        .link::after {
+            content: '';
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            bottom: 0;
+            left: 0;
+            background-color: var(--link-color);
+            transform: scaleX(0);
+            transition: transform 0.3s ease;
+        }
+
+        .link:hover::after {
+            transform: scaleX(1);
+        }
+
+        .clock {
+            font-size: 1.2rem;
+            color: var(--accent-color);
+            margin-bottom: 1rem;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 1rem;
+            }
+
+            .title {
+                font-size: 2rem;
+            }
+
+            .quick-links {
+                gap: 1rem;
+            }
+
+            .quick-link {
+                width: 80px;
+            }
+
+            .quick-link-icon {
+                width: 40px;
+                height: 40px;
+            }
+
+            .navigation {
+                flex-direction: column;
+                align-items: center;
+            }
+        }
+    </style>
 </head>
+<body>
+<div class="container">
+    <div class="clock" id="clock"></div>
+    <h1 class="title">导航页</h1>
 
-<style>
-    body{
-        font-family: "Times New Roman",Times,serif;
-        font-size: 18px;
-        color: #f5eee8;
-        hyphens: auto;
-    }
-    .link {
-        font-size: 18px;
-        color: #f5eee8;
-    }
-    .title {
-        font-weight: bold;
-    }
-    .page{
-        display: flex;
-        flex-direction: col;
-    }
-</style>
+    <div class="quick-links">
+        <a href="https://cn.bing.com" class="quick-link" target="_blank">
+            <div class="quick-link-icon">
+                <img src="https://cn.bing.com/favicon.ico" alt="Bing">
+            </div>
+            <span class="quick-link-text">Bing</span>
+        </a>
+        <a href="https://github.com" class="quick-link" target="_blank">
+            <div class="quick-link-icon">
+                <img src="https://github.com/favicon.ico" alt="GitHub">
+            </div>
+            <span class="quick-link-text">GitHub</span>
+        </a>
+        <a href="https://tieba.baidu.com" class="quick-link" target="_blank">
+            <div class="quick-link-icon">
+                <img src="https://tieba.baidu.com/favicon.ico" alt="baidutieba">
+            </div>
+            <span class="quick-link-text">百度贴吧</span>
+        </a>
+        <a href="https://www.bilibili.com" class="quick-link" target="_blank">
+            <div class="quick-link-icon">
+                <img src="https://www.bilibili.com/favicon.ico" alt="Bilibili">
+            </div>
+            <span class="quick-link-text">Bilibili</span>
+        </a>
+        <a href="https://v.qq.com" class="quick-link" target="_blank">
+            <div class="quick-link-icon">
+                <img src="https://v.qq.com/favicon.ico" alt="腾讯视频">
+            </div>
+            <span class="quick-link-text">腾讯视频</span>
+        </a>
+    </div>
 
-<body bgcolor="#E1E9E3">
+    <nav class="navigation">
+        <a href="#" class="link">首页</a>
+        <a href="#" class="link">项目</a>
+        <a href="#" class="link">关于</a>
+        <a href="#" class="link">联系</a>
+    </nav>
+</div>
+
+<script>
+    function updateClock() {
+        const now = new Date();
+        const clock = document.getElementById('clock');
+        clock.textContent = now.toLocaleString('zh-CN', {
+            year: 'numeric',
+            month: 'long',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit',
+            hour12: false
+        });
+    }
+
+    // Update clock immediately and then every second
+    updateClock();
+    setInterval(updateClock, 1000);
+</script>
 </body>
 </html>
