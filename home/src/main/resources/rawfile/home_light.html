@@ -12,12 +12,15 @@
             --accent-color: #34495e;
             --link-color: #2980b9;
             --icon-size: 48px;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --transition-duration: 0.3s;
         }
 
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: all var(--transition-duration) ease;
         }
 
         html, body {
@@ -43,7 +46,7 @@
 
         .header {
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             width: 100%;
             margin-bottom: 2rem;
@@ -52,7 +55,8 @@
         .header img {
             width: var(--icon-size);
             height: var(--icon-size);
-            transition: transform 0.3s ease;
+            margin-right: 1rem;
+            transition: transform var(--transition-duration) ease;
         }
 
         .header img:hover {
@@ -60,10 +64,10 @@
         }
 
         .header .brand {
-            font-size: 1.5rem;
+            font-size: 2rem; /* 放大字体 */
             font-weight: bold;
             color: var(--accent-color);
-            transition: color 0.3s ease;
+            transition: color var(--transition-duration) ease;
         }
 
         .header .brand:hover {
@@ -87,11 +91,13 @@
             border-radius: 25px;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s ease;
+            transition: border-color var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
+            box-shadow: 0 4px 8px var(--shadow-color);
         }
 
         .search-container input[type="text"]:focus {
             border-color: var(--link-color);
+            box-shadow: 0 6px 12px var(--shadow-color);
         }
 
         .search-container select {
@@ -102,31 +108,42 @@
             border-radius: 25px;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s ease;
+            transition: border-color var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
             background-color: white;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            width: 100px; /* 缩短宽度 */
         }
 
         .search-container select:focus {
             border-color: var(--link-color);
+            box-shadow: 0 6px 12px var(--shadow-color);
         }
 
-        .search-container button {
-            position: absolute;
-            left: 1rem;
+        .search-container .ai-search-btn {
+            margin-right: 1rem;
             padding: 0.5rem 1rem;
             border: 2px solid var(--accent-color);
-            border-radius: 25px;
+            border-radius: 50%; /* 圆形按钮 */
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s ease, background-color 0.3s ease;
             background-color: var(--accent-color);
             color: white;
             cursor: pointer;
+            transition: background-color var(--transition-duration) ease, border-color var(--transition-duration) ease, box-shadow var(--transition-duration) ease, transform var(--transition-duration) ease;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 40px; /* 圆形按钮的宽度 */
+            height: 40px; /* 圆形按钮的高度 */
+            font-size: 0.8rem; /* 缩小字体 */
         }
 
-        .search-container button:hover {
-            border-color: var(--link-color);
+        .search-container .ai-search-btn:hover {
             background-color: var(--link-color);
+            border-color: var(--link-color);
+            box-shadow: 0 6px 12px var(--shadow-color);
+            transform: scale(1.1);
         }
 
         .ai-search-container {
@@ -140,19 +157,23 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
+            transition: opacity var(--transition-duration) ease;
         }
 
         .ai-search-container.active {
             display: flex;
+            opacity: 1;
         }
 
         .ai-search-box {
             background-color: white;
             padding: 2rem;
             border-radius: 10px;
-            width: 100%;
+            width: 80%;
             max-width: 600px;
             position: relative;
+            box-shadow: 0 8px 16px var(--shadow-color);
+            transition: transform var(--transition-duration) ease;
         }
 
         .ai-search-box input[type="text"] {
@@ -162,32 +183,37 @@
             border-radius: 25px;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s ease;
+            transition: border-color var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
+            box-shadow: 0 4px 8px var(--shadow-color);
         }
 
         .ai-search-box input[type="text"]:focus {
             border-color: var(--link-color);
+            box-shadow: 0 6px 12px var(--shadow-color);
         }
 
         .ai-search-box button {
             margin-top: 1rem;
-            padding: 0.5rem 1rem;
+            padding: 0.5rem 1.5rem; /* 增加按钮宽度 */
             border: 2px solid var(--accent-color);
             border-radius: 25px;
             font-size: 1rem;
             outline: none;
-            transition: border-color 0.3s ease, background-color 0.3s ease;
             background-color: var(--accent-color);
             color: white;
             cursor: pointer;
+            transition: background-color var(--transition-duration) ease, border-color var(--transition-duration) ease, box-shadow var(--transition-duration) ease, transform var(--transition-duration) ease;
+            box-shadow: 0 4px 8px var(--shadow-color);
         }
 
         .ai-search-box button:hover {
-            border-color: var(--link-color);
             background-color: var(--link-color);
+            border-color: var(--link-color);
+            box-shadow: 0 6px 12px var(--shadow-color);
+            transform: scale(1.1);
         }
 
-        .ai-search-box .close-button {
+        .ai-search-box .close-btn {
             position: absolute;
             top: 1rem;
             right: 1rem;
@@ -196,13 +222,12 @@
             font-size: 1.5rem;
             color: var(--accent-color);
             cursor: pointer;
+            transition: color var(--transition-duration) ease, transform var(--transition-duration) ease;
         }
 
-        .ai-search-result {
-            margin-top: 1rem;
-            font-size: 1rem;
-            color: var(--text-color);
-            text-align: left;
+        .ai-search-box .close-btn:hover {
+            color: var(--link-color);
+            transform: scale(1.2);
         }
 
         .quick-links {
@@ -219,12 +244,19 @@
             align-items: center;
             text-decoration: none;
             color: var(--text-color);
-            transition: transform 0.3s ease;
+            transition: transform var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
             width: 100px;
+            border-radius: 10px;
+            padding: 1rem;
+            background-color: white;
+            box-shadow: 0 4px 8px var(--shadow-color);
+            cursor: grab;
+            position: relative;
         }
 
         .quick-link:hover {
-            transform: scale(1.1);
+            transform: translateY(-5px);
+            box-shadow: 0 6px 12px var(--shadow-color);
         }
 
         .quick-link-icon {
@@ -236,7 +268,7 @@
             align-items: center;
             background-color: rgba(52, 73, 94, 0.1);
             margin-bottom: 0.5rem;
-            transition: background-color 0.3s ease;
+            transition: background-color var(--transition-duration) ease;
         }
 
         .quick-link:hover .quick-link-icon {
@@ -264,7 +296,7 @@
             text-decoration: none;
             color: var(--link-color);
             font-size: 1rem;
-            transition: color 0.3s ease;
+            transition: color var(--transition-duration) ease;
             position: relative;
             padding-bottom: 0.25rem;
         }
@@ -282,7 +314,7 @@
             left: 0;
             background-color: var(--link-color);
             transform: scaleX(0);
-            transition: transform 0.3s ease;
+            transition: transform var(--transition-duration) ease;
         }
 
         .link:hover::after {
@@ -293,6 +325,123 @@
             font-size: 1.2rem;
             color: var(--accent-color);
             margin-bottom: 1rem;
+        }
+
+        .settings-container {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            transition: opacity var(--transition-duration) ease;
+        }
+
+        .settings-container.active {
+            display: flex;
+            opacity: 1;
+        }
+
+        .settings-box {
+            background-color: white;
+            padding: 2rem;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 600px;
+            position: relative;
+            box-shadow: 0 8px 16px var(--shadow-color);
+            transition: transform var(--transition-duration) ease;
+        }
+
+        .settings-box .close-btn {
+            position: absolute;
+            top: 1rem;
+            right: 1rem;
+            background-color: transparent;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--accent-color);
+            cursor: pointer;
+            transition: color var(--transition-duration) ease, transform var(--transition-duration) ease;
+        }
+
+        .settings-box .close-btn:hover {
+            color: var(--link-color);
+            transform: scale(1.2);
+        }
+
+        .settings-box h2 {
+            font-size: 1.5rem;
+            margin-bottom: 1rem;
+            color: var(--accent-color);
+        }
+
+        .settings-box .link-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+
+        .settings-box .link-item input {
+            width: 70%;
+            padding: 0.5rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            transition: border-color var(--transition-duration) ease, box-shadow var(--transition-duration) ease;
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .settings-box .link-item input:focus {
+            border-color: var(--link-color);
+            box-shadow: 0 6px 12px var(--shadow-color);
+        }
+
+        .settings-box .link-item button {
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            background-color: var(--accent-color);
+            color: white;
+            cursor: pointer;
+            transition: background-color var(--transition-duration) ease, border-color var(--transition-duration) ease, box-shadow var(--transition-duration) ease, transform var(--transition-duration) ease;
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .settings-box .link-item button:hover {
+            background-color: var(--link-color);
+            border-color: var(--link-color);
+            box-shadow: 0 6px 12px var(--shadow-color);
+            transform: scale(1.1);
+        }
+
+        .settings-box .add-link-btn {
+            margin-top: 1rem;
+            padding: 0.5rem 1rem;
+            border: 2px solid var(--accent-color);
+            border-radius: 25px;
+            font-size: 1rem;
+            outline: none;
+            background-color: var(--accent-color);
+            color: white;
+            cursor: pointer;
+            transition: background-color var(--transition-duration) ease, border-color var(--transition-duration) ease, box-shadow var(--transition-duration) ease, transform var(--transition-duration) ease;
+            box-shadow: 0 4px 8px var(--shadow-color);
+        }
+
+        .settings-box .add-link-btn:hover {
+            background-color: var(--link-color);
+            border-color: var(--link-color);
+            box-shadow: 0 6px 12px var(--shadow-color);
+            transform: scale(1.1);
         }
 
         @media (max-width: 600px) {
@@ -329,7 +478,7 @@
     <div class="clock" id="clock"></div>
 
     <div class="search-container">
-        <button id="ai-search-button">AI 搜索</button>
+        <button class="ai-search-btn" id="ai-search-btn">AI</button>
         <input type="text" id="search-input" placeholder="搜索..." onkeypress="handleKeyPress(event)">
         <select id="search-engine">
             <option value="https://www.google.com/search?q=">Google</option>
@@ -341,14 +490,14 @@
 
     <div class="ai-search-container" id="ai-search-container">
         <div class="ai-search-box">
-            <button class="close-button" onclick="closeAiSearch()">×</button>
+            <button class="close-btn" id="close-ai-search-btn">&times;</button>
             <input type="text" id="ai-search-input" placeholder="AI 搜索...">
-            <button onclick="performAiSearch()">搜索</button>
-            <div class="ai-search-result" id="ai-search-result"></div>
+            <button id="ai-search-submit-btn">搜索</button>
+            <div id="ai-search-result"></div>
         </div>
     </div>
 
-    <div class="quick-links">
+    <div class="quick-links" id="quick-links">
         <a href="https://cn.bing.com" class="quick-link" target="_blank">
             <div class="quick-link-icon">
                 <img src="https://cn.bing.com/favicon.ico" alt="Bing">
@@ -382,13 +531,20 @@
     </div>
 
     <nav class="navigation">
-        <a href="#" class="link">首页</a>
-        <a href="#" class="link">项目</a>
-        <a href="#" class="link">关于</a>
-        <a href="#" class="link">联系</a>
+        <a href="#" class="link" id="settings-btn">设置</a>
     </nav>
 </div>
 
+<div class="settings-container" id="settings-container">
+    <div class="settings-box">
+        <button class="close-btn" id="close-settings-btn">&times;</button>
+        <h2>设置快捷链接</h2>
+        <div id="link-settings"></div>
+        <button class="add-link-btn" id="add-link-btn">添加链接</button>
+    </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/sortablejs@latest/Sortable.min.js"></script>
 <script>
     function updateClock() {
         const now = new Date();
@@ -414,54 +570,150 @@
         }
     }
 
-    function openAiSearch() {
+    document.getElementById('ai-search-btn').addEventListener('click', () => {
         document.getElementById('ai-search-container').classList.add('active');
-    }
+    });
 
-    function closeAiSearch() {
+    document.getElementById('close-ai-search-btn').addEventListener('click', () => {
         document.getElementById('ai-search-container').classList.remove('active');
-    }
+    });
 
-    async function performAiSearch() {
+    document.getElementById('ai-search-submit-btn').addEventListener('click', () => {
         const aiSearchInput = document.getElementById('ai-search-input').value;
         if (aiSearchInput) {
-            const response = await fetch('http://localhost:5000/chat', {
+            fetch('/chat', {
                 method: 'POST',
                 headers: {
                     'Content-Type': 'application/json'
                 },
                 body: JSON.stringify({
-                    model: 'lite',
-                    messages: [
-                        {
-                            role: 'user',
-                            content: aiSearchInput
-                        }
-                    ],
-                    stream: true
+                    query: aiSearchInput
                 })
+            })
+            .then(response => response.json())
+            .then(data => {
+                const resultDiv = document.getElementById('ai-search-result');
+                resultDiv.innerHTML = '';
+                data.forEach(line => {
+                    const jsonLine = JSON.parse(line);
+                    if (jsonLine.choices && jsonLine.choices[0].delta.content) {
+                        resultDiv.innerHTML += jsonLine.choices[0].delta.content;
+                    }
+                });
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    });
+
+    // 使用 Sortable.js 实现拖拽排序
+    const quickLinks = document.getElementById('quick-links');
+    const sortable = new Sortable(quickLinks, {
+        animation: 150, // 动画效果
+        ghostClass: 'sortable-ghost', // 拖拽时的样式
+        chosenClass: 'sortable-chosen', // 选中时的样式
+        dragClass: 'sortable-drag', // 拖拽时的样式
+    });
+
+    // 设置链接界面
+    const settingsContainer = document.getElementById('settings-container');
+    const settingsBtn = document.getElementById('settings-btn');
+    const closeSettingsBtn = document.getElementById('close-settings-btn');
+    const linkSettings = document.getElementById('link-settings');
+    const addLinkBtn = document.getElementById('add-link-btn');
+
+    settingsBtn.addEventListener('click', () => {
+        settingsContainer.classList.add('active');
+        renderLinkSettings();
+    });
+
+    closeSettingsBtn.addEventListener('click', () => {
+        settingsContainer.classList.remove('active');
+    });
+
+    addLinkBtn.addEventListener('click', () => {
+        const newLinkItem = document.createElement('div');
+        newLinkItem.className = 'link-item';
+        newLinkItem.innerHTML = `
+            <input type="text" placeholder="链接地址" class="link-url">
+            <input type="text" placeholder="链接名称" class="link-name">
+            <button class="save-link-btn">保存</button>
+            <button class="delete-link-btn">删除</button>
+        `;
+        linkSettings.appendChild(newLinkItem);
+
+        const saveLinkBtn = newLinkItem.querySelector('.save-link-btn');
+        const deleteLinkBtn = newLinkItem.querySelector('.delete-link-btn');
+        const linkUrlInput = newLinkItem.querySelector('.link-url');
+        const linkNameInput = newLinkItem.querySelector('.link-name');
+
+        saveLinkBtn.addEventListener('click', () => {
+            const linkUrl = linkUrlInput.value;
+            const linkName = linkNameInput.value;
+            if (linkUrl && linkName) {
+                addLink(linkUrl, linkName);
+                settingsContainer.classList.remove('active');
+            }
+        });
+
+        deleteLinkBtn.addEventListener('click', () => {
+            newLinkItem.remove();
+        });
+    });
+
+    function renderLinkSettings() {
+        linkSettings.innerHTML = '';
+        const quickLinksArray = Array.from(quickLinks.children);
+        quickLinksArray.forEach(link => {
+            const linkUrl = link.href;
+            const linkName = link.querySelector('.quick-link-text').textContent;
+            const linkItem = document.createElement('div');
+            linkItem.className = 'link-item';
+            linkItem.innerHTML = `
+                <input type="text" value="${linkUrl}" class="link-url">
+                <input type="text" value="${linkName}" class="link-name">
+                <button class="save-link-btn">保存</button>
+                <button class="delete-link-btn">删除</button>
+            `;
+            linkSettings.appendChild(linkItem);
+
+            const saveLinkBtn = linkItem.querySelector('.save-link-btn');
+            const deleteLinkBtn = linkItem.querySelector('.delete-link-btn');
+            const linkUrlInput = linkItem.querySelector('.link-url');
+            const linkNameInput = linkItem.querySelector('.link-name');
+
+            saveLinkBtn.addEventListener('click', () => {
+                const newLinkUrl = linkUrlInput.value;
+                const newLinkName = linkNameInput.value;
+                if (newLinkUrl && newLinkName) {
+                    link.href = newLinkUrl;
+                    link.querySelector('.quick-link-text').textContent = newLinkName;
+                    settingsContainer.classList.remove('active');
+                }
             });
 
-            const reader = response.body.getReader();
-            const decoder = new TextDecoder('utf-8');
-            const resultElement = document.getElementById('ai-search-result');
-            resultElement.textContent = ''; // Clear previous results
-
-            while (true) {
-                const { done, value } = await reader.read();
-                if (done) {
-                    break;
-                }
-                const chunk = decoder.decode(value);
-                const data = JSON.parse(chunk);
-                if (data.choices && data.choices[0].delta.content) {
-                    resultElement.textContent += data.choices[0].delta.content;
-                }
-            }
-        }
+            deleteLinkBtn.addEventListener('click', () => {
+                link.remove();
+                linkItem.remove();
+            });
+        });
     }
 
-    document.getElementById('ai-search-button').addEventListener('click', openAiSearch);
+    function addLink(url, name) {
+        const newLink = document.createElement('a');
+        newLink.href = url;
+        newLink.className = 'quick-link';
+        newLink.target = '_blank';
+        newLink.draggable = true;
+        newLink.innerHTML = `
+            <div class="quick-link-icon">
+                <img src="${url}/favicon.ico" alt="${name}">
+            </div>
+            <span class="quick-link-text">${name}</span>
+        `;
+        quickLinks.appendChild(newLink);
+    }
 
     // Update clock immediately and then every second
     updateClock();

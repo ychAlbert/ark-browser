@@ -77,6 +77,7 @@ struct Index {
     showInSubWindow: true,
     width: "90%",
   });
+
   // Colors
   @StorageLink('color_light_primary') @Watch('on_color_change') color_light_primary: ResourceColor =
     $r('app.color.start_window_background');
