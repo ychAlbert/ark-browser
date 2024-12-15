@@ -3,7 +3,6 @@ import linysText from '../components/linysText';
 import linysTitleText from '../components/linysTitleText';
 import { animation_default, capsule_bar_height } from '../hosts/bunch_of_defaults';
 import { hex2hsv, hsv2hex, is_legal_hex } from '../utils/color_tools';
-
 @CustomDialog
 struct woofColorSelect {
   controller: CustomDialogController;
