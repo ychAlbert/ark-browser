@@ -198,7 +198,6 @@ struct Index {
               .animation(animation_default())
               .scrollable(ScrollDirection.Horizontal)
               .scrollBar(BarState.Off)
-
             }
             .width("100%")
             .height("100%")
