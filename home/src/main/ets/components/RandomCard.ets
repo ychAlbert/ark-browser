@@ -17,11 +17,11 @@ export struct RandomCard {
         }
       }
 //这里换成自己的随机显示
-      Image($r('app.media.startIcon'))
-        .width('80%')
+      Image($r('app.media.img_1'))
+        .width('100%')
         .height(150)
         .borderRadius(10)
-        .objectFit(ImageFit.Cover)
+        .objectFit(ImageFit.Contain)
         .margin({ bottom: 10 })
         .alignSelf(ItemAlign.Center)
 

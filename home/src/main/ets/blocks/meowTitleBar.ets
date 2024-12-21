@@ -375,7 +375,7 @@ struct meowTitleBar {
 
       Row({ space: 10 }) {
         linysSymbol({
-          symbol_glyph_target: 'sys.symbol.qrcode'
+          symbol_glyph_target: 'sys.symbol.person'
         })// QRcode
           .onClick(() => {
             this.woofQR_control.open();
